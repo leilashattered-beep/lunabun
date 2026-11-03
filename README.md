@@ -174,9 +174,7 @@ for the keyboard, a gamepad and scripted input.
 | Key | Action |
 | --- | --- |
 | `A` / `D` (or `←` / `→`) | walk left / right |
-| `Q` | go through a hole or door — into the burrow, and back out |
-| `E` | take / sleep, and wake up again |
-| `R` | talk |
+| `E` | take an item, talk, enter / leave the burrow, sleep and wake again |
 | `ESC` | pause menu while playing, back one step inside a menu |
 
 
@@ -206,24 +204,22 @@ directly in world space, so they line up by simply placing the hill at x = 3204:
 | Key | Action |
 | --- | --- |
 | `A` / `D` (or `←` / `→`) | walk left / right |
-| `Q` | go through a hole or door — into the burrow, and back out |
-| `E` | take / sleep, and wake up again |
-| `R` | talk |
+| `E` | take an item, talk, enter / leave the burrow, sleep and wake again |
 
 ### Interactions
 
-The prompt that appears is the supplied key-cap art from `ui/keys/`
-(`take.png`, `enter.png`, `exit.png`, `talk.png`, `sleep.png`), shown centred
-near the bottom of the screen by `scripts/key_prompt.gd`:
+Every interaction is on **E**. The prompt that appears is a plain line of text,
+shown centred near the bottom of the screen by `scripts/key_prompt.gd`:
 
-* **Q войти** — at the hole in the hill (x=3604) → the burrow room
-* **Q выйти** — at the door inside the room (x=34) → back outdoors
+* **E войти** — at the hole in the hill (x=3604) → the burrow room
+* **E выйти** — at the door inside the room (x=34) → back outdoors
+* **E взять** — at a shard or a note that is within reach
 * **E лечь спать** — at the nest (x=254); **E** again wakes the rabbit
-* **R говорить** — by the crystal shelf in the room (x=66) says a line of text
+* **E говорить** — by the crystal shelf in the room (x=66) says a line of text
 
-The source prompt images were drawn on a 12x grid, so they were downsampled
-with NEAREST to single art pixels and then to 26 px tall, which keeps the edges
-crisp at the game's resolution.
+The supplied key-cap pictures (`ui/keys/take.png`, `enter.png`, `exit.png`,
+`talk.png`, `sleep.png`) are still in the project but are no longer drawn: one
+key does all of it now, so the text line says what will happen instead.
 
 ### The sleep sequence
 

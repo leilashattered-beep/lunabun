@@ -283,7 +283,7 @@ func _build_ui() -> void:
 	col.add_child(_text)
 
 	_hint = Label.new()
-	_hint.text = "R / E / Enter — дальше,   ESC — закрыть"
+	_hint.text = "E / Enter — дальше,   ESC — закрыть"
 	_hint.add_theme_font_size_override("font_size", 16)
 	_hint.add_theme_color_override("font_color", Color(0.55, 0.62, 0.78))
 	col.add_child(_hint)

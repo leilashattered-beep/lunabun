@@ -148,8 +148,10 @@ func _process(_delta: float) -> void:
 		prompt.show_key(key_for(current_map()))
 	else:
 		prompt.hide_prompt()
-	# Q goes in and out of the burrow; E is for taking and sleeping.
-	if near and Input.is_action_just_pressed("enter_exit"):
+	# E goes in and out of the burrow, and also takes things and talks. When
+	# something else is within reach, that thing gets the press first, so a
+	# shard lying next to the hole never opens the burrow by accident.
+	if near and not Quest.has_nearby_thing() and Input.is_action_just_pressed("enter_exit"):
 		await _enter()
 
 

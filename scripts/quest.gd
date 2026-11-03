@@ -62,6 +62,12 @@ var _flash: Label
 var _heart_core: Sprite2D
 
 
+## True while a shard, note, animal or the heart is close enough to use. The
+## burrow door reads this so one key press never does two things at once.
+func has_nearby_thing() -> bool:
+	return _prompt != null and _prompt.visible
+
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_glow_tex = load("res://fireflies/firefly_glow.png")

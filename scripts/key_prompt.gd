@@ -7,9 +7,9 @@ extends Control
 ## Which action the prompt is for, and the line that describes it.
 const LINES := {
 	"take": "E — взять",
-	"enter": "Q — войти",
-	"exit": "Q — выйти",
-	"talk": "R — говорить",
+	"enter": "E — войти",
+	"exit": "E — выйти",
+	"talk": "E — говорить",
 	"sleep": "E — лечь спать",
 	"wake": "E — проснуться",
 }

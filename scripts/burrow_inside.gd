@@ -149,7 +149,8 @@ func _process(_delta: float) -> void:
 
 	# Polled rather than handled as an event: this works identically for real
 	# input, for gamepads and for scripted input in tests.
-	# E sleeps and wakes, Q goes out of the door, R talks.
+	# One key does the room: E at the door leaves, E at the bed sleeps or wakes.
+	# The door is checked first, and the two never sit within reach of each other.
 	if Input.is_action_just_pressed("enter_exit") and not _sleeping and near_door:
 		await _leave()
 		return
@@ -162,7 +163,7 @@ func _process(_delta: float) -> void:
 	if near_bed:
 		await _sleep()
 
-## Shows a short spoken line for a moment. Enough to make R — говорить mean
+## Shows a short spoken line for a moment. Enough to make "E — говорить" mean
 ## something without adding a dialogue system.
 func _say(text: String) -> void:
 	line.text = text

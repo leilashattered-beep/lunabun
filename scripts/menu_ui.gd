@@ -599,11 +599,10 @@ func _build_howto_panel() -> void:
 	# One multi-line label keeps the block compact and easy to read at this size.
 	_panel_lines("A / D — движение влево / вправо\n" +
 		"Пробел — прыжок\n" +
-		"E — взять предмет\n" +
-		"Q — войти / выйти\n" +
-		"R — говорить\n" +
+		"E — взять предмет / говорить\n" +
+		"E — войти / выйти\n" +
 		"E — лечь спать", LABEL_SIZE - 3, COL_TEXT)
-	_panel_lines("E зависит от места: у предмета —\nвзять, у спального места — спать.",
+	_panel_lines("E зависит от места: у предмета — взять,\nу норы — войти / выйти, у лежанки — спать.",
 		HINT_SIZE, COL_DIM)
 	_panel_button("Назад", _back)
 
