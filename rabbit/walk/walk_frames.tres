@@ -1,0 +1,74 @@
+[gd_resource type="SpriteFrames" load_steps=17 format=3]
+
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_01.png" id="1_frame1"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_02.png" id="2_frame2"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_03.png" id="3_frame3"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_04.png" id="4_frame4"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_05.png" id="5_frame5"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_06.png" id="6_frame6"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_07.png" id="7_frame7"]
+[ext_resource type="Texture2D" path="res://rabbit/walk/walk_08.png" id="8_frame8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1"]
+atlas = ExtResource("1_frame1")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2"]
+atlas = ExtResource("2_frame2")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3"]
+atlas = ExtResource("3_frame3")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4"]
+atlas = ExtResource("4_frame4")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5"]
+atlas = ExtResource("5_frame5")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6"]
+atlas = ExtResource("6_frame6")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7"]
+atlas = ExtResource("7_frame7")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8"]
+atlas = ExtResource("8_frame8")
+region = Rect2(0, 0, 192, 160)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 10.0
+}]

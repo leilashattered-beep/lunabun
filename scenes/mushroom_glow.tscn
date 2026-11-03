@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/mushroom_glow.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://mushrooms/mushroom_halo.png" id="2_halo"]
+[ext_resource type="Texture2D" path="res://mushrooms/mushroom_pool.png" id="3_pool"]
+
+[sub_resource type="CanvasItemMaterial" id="GlowAdditive"]
+blend_mode = 1
+
+[node name="MushroomGlow" type="Node2D"]
+material = SubResource("GlowAdditive")
+z_index = -5
+script = ExtResource("1_script")
+spots_path = "res://forest_layers/mushroom_spots.json"
+halo_texture = ExtResource("2_halo")
+pool_texture = ExtResource("3_pool")
+halo_scale = 1.7
+min_halo = 3.5
+max_halo = 7.0
+halo_strength = 0.45
+pool_strength = 0.3
+pool_squash = 0.42
+pool_stretch = 1.7
+merge_distance = 26.0
+min_pixels = 60

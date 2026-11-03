@@ -1,0 +1,120 @@
+{
+ "note": "места, где можно спрятаться (кусты и высокая трава). x = центр, width = ширина",
+ "spots": [
+  {
+   "kind": "bush",
+   "x": 166,
+   "ground_y": 153,
+   "width": 32
+  },
+  {
+   "kind": "bush",
+   "x": 280,
+   "ground_y": 156,
+   "width": 37
+  },
+  {
+   "kind": "bush",
+   "x": 396,
+   "ground_y": 149,
+   "width": 33
+  },
+  {
+   "kind": "bush",
+   "x": 525,
+   "ground_y": 150,
+   "width": 38
+  },
+  {
+   "kind": "bush",
+   "x": 659,
+   "ground_y": 150,
+   "width": 37
+  },
+  {
+   "kind": "grass",
+   "x": 859,
+   "ground_y": 157,
+   "width": 28
+  },
+  {
+   "kind": "grass",
+   "x": 993,
+   "ground_y": 151,
+   "width": 28
+  },
+  {
+   "kind": "grass",
+   "x": 1274,
+   "ground_y": 148,
+   "width": 28
+  },
+  {
+   "kind": "grass",
+   "x": 1426,
+   "ground_y": 154,
+   "width": 28
+  },
+  {
+   "kind": "bush",
+   "x": 1585,
+   "ground_y": 155,
+   "width": 32
+  },
+  {
+   "kind": "bush",
+   "x": 1779,
+   "ground_y": 149,
+   "width": 32
+  },
+  {
+   "kind": "bush",
+   "x": 1960,
+   "ground_y": 150,
+   "width": 32
+  },
+  {
+   "kind": "bush",
+   "x": 2645,
+   "ground_y": 152,
+   "width": 32
+  },
+  {
+   "kind": "bush",
+   "x": 2780,
+   "ground_y": 153,
+   "width": 32
+  },
+  {
+   "kind": "grass",
+   "x": 2198,
+   "ground_y": 157,
+   "width": 28
+  },
+  {
+   "kind": "bush",
+   "x": 2836,
+   "ground_y": 152,
+   "width": 32
+  },
+  {
+   "kind": "bush",
+   "x": 2949,
+   "ground_y": 152,
+   "width": 32
+  }
+ ],
+ "biome_borders_x": [
+  800,
+  1500,
+  2150,
+  2800
+ ],
+ "biome_names": [
+  "Тёмный лес",
+  "Лунная поляна",
+  "Грибная роща",
+  "Часовня",
+  "Сердце леса"
+ ]
+}

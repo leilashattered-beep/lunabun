@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/key_prompt.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://ui/keys/take.png" id="2_take"]
+
+[node name="KeyPrompt" type="Control"]
+anchors_preset = 0
+offset_right = 66.0
+offset_bottom = 26.0
+mouse_filter = 2
+script = ExtResource("1_script")
+key = "take"
+bottom_margin = 96.0
+
+[node name="Icon" type="TextureRect" parent="."]
+texture_filter = 0
+offset_right = 66.0
+offset_bottom = 26.0
+mouse_filter = 2
+texture = ExtResource("2_take")
+stretch_mode = 0

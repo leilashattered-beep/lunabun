@@ -1,0 +1,136 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="PackedScene" path="res://forest_layers/forest_parallax.tscn" id="1_forest"]
+[ext_resource type="Script" path="res://scripts/rabbit.gd" id="2_rabbit"]
+[ext_resource type="SpriteFrames" path="res://rabbit/new/idle_frames.tres" id="3_idle"]
+[ext_resource type="PackedScene" path="res://scenes/ground_collision.tscn" id="4_ground"]
+[ext_resource type="SpriteFrames" path="res://rabbit/new/walk_frames.tres" id="5_walk"]
+[ext_resource type="SpriteFrames" path="res://rabbit/new/jump_frames.tres" id="6_jump"]
+[ext_resource type="PackedScene" path="res://scenes/atmosphere.tscn" id="6_atmosphere"]
+[ext_resource type="PackedScene" path="res://scenes/light_pools.tscn" id="7_pools"]
+[ext_resource type="PackedScene" path="res://scenes/ambient_flies.tscn" id="8_ambient"]
+[ext_resource type="PackedScene" path="res://scenes/path_flies.tscn" id="9_path"]
+[ext_resource type="PackedScene" path="res://scenes/mushroom_glow.tscn" id="10_mushrooms"]
+[ext_resource type="PackedScene" path="res://scenes/burrow_entrance.tscn" id="11_entrance"]
+[ext_resource type="Script" path="res://scripts/tile_parallax.gd" id="17_tile"]
+[ext_resource type="Script" path="res://scripts/world_lights.gd" id="18_lights"]
+[ext_resource type="Texture2D" path="res://burrow_layers/out_02_far.png" id="12_hill_far"]
+[ext_resource type="Texture2D" path="res://burrow_layers/out_03_mid.png" id="13_hill_mid"]
+[ext_resource type="Texture2D" path="res://burrow_layers/out_04_back.png" id="14_hill_back"]
+[ext_resource type="Texture2D" path="res://burrow_layers/out_05_main.png" id="15_hill_main"]
+[ext_resource type="Texture2D" path="res://burrow_layers/out_06_front.png" id="16_hill_front"]
+
+[sub_resource type="RectangleShape2D" id="RabbitBody"]
+size = Vector2(38, 22)
+
+[node name="Lunabun" type="Node2D"]
+script = ExtResource("17_tile")
+
+[node name="WorldLights" type="Node2D" parent="."]
+script = ExtResource("18_lights")
+
+[node name="Rabbit" type="CharacterBody2D" parent="."]
+position = Vector2(400, 147)
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+floor_snap_length = 8.0
+script = ExtResource("2_rabbit")
+idle_frames = ExtResource("3_idle")
+walk_frames = ExtResource("5_walk")
+jump_frames = ExtResource("6_jump")
+walk_limits = Vector2(8, 3676)
+floor_range = Vector2(143, 157)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rabbit"]
+texture_filter = 0
+scale = Vector2(0.3, 0.3)
+offset = Vector2(0, -21.2)
+sprite_frames = ExtResource("3_idle")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rabbit"]
+position = Vector2(0, -11.0)
+shape = SubResource("RabbitBody")
+
+[node name="Camera2D" type="Camera2D" parent="Rabbit"]
+position = Vector2(0, -58)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+limit_left = 0
+limit_top = 0
+limit_right = 3688
+limit_bottom = 180
+
+[node name="Ground" parent="." instance=ExtResource("4_ground")]
+
+[node name="ForestParallax" parent="." instance=ExtResource("1_forest")]
+
+[node name="HillBackground" type="ParallaxBackground" parent="."]
+layer = -1
+
+[node name="HillFar" type="ParallaxLayer" parent="HillBackground"]
+motion_scale = Vector2(0.12, 1)
+motion_offset = Vector2(3204, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="HillBackground/HillFar"]
+texture_filter = 0
+texture = ExtResource("12_hill_far")
+centered = false
+
+[node name="HillMid" type="ParallaxLayer" parent="HillBackground"]
+motion_scale = Vector2(0.3, 1)
+motion_offset = Vector2(3204, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="HillBackground/HillMid"]
+texture_filter = 0
+texture = ExtResource("13_hill_mid")
+centered = false
+
+[node name="HillBack" type="ParallaxLayer" parent="HillBackground"]
+motion_scale = Vector2(0.55, 1)
+motion_offset = Vector2(3204, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="HillBackground/HillBack"]
+texture_filter = 0
+texture = ExtResource("14_hill_back")
+centered = false
+
+[node name="HillMain" type="ParallaxLayer" parent="HillBackground"]
+motion_scale = Vector2(1, 1)
+motion_offset = Vector2(3204, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="HillBackground/HillMain"]
+texture_filter = 0
+texture = ExtResource("15_hill_main")
+centered = false
+
+[node name="HillForeground" type="ParallaxBackground" parent="."]
+layer = 1
+
+[node name="HillFront" type="ParallaxLayer" parent="HillForeground"]
+motion_scale = Vector2(1.35, 1)
+motion_offset = Vector2(3204, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="HillForeground/HillFront"]
+texture_filter = 0
+texture = ExtResource("16_hill_front")
+centered = false
+
+[node name="LightPools" parent="." instance=ExtResource("7_pools")]
+
+[node name="MushroomGlow" parent="." instance=ExtResource("10_mushrooms")]
+
+[node name="AmbientFlies" parent="." instance=ExtResource("8_ambient")]
+
+[node name="PathFlies" parent="." instance=ExtResource("9_path")]
+
+[node name="Atmosphere" parent="." instance=ExtResource("6_atmosphere")]
+
+[node name="BurrowEntrance" parent="." instance=ExtResource("11_entrance")]
+entrance_x = 3604.0
+floor_y = 147.0
+exit_spawn_x = 3614.0
+nest_x = 3504.0

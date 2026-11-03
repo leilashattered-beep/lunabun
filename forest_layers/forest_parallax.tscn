@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://forest_layers/01_sky.png" id="1"]
+[ext_resource type="Texture2D" path="res://forest_layers/02_far.png" id="2"]
+[ext_resource type="Texture2D" path="res://forest_layers/03_mid.png" id="3"]
+[ext_resource type="Texture2D" path="res://forest_layers/04_back.png" id="4"]
+[ext_resource type="Texture2D" path="res://forest_layers/05_main.png" id="5"]
+[ext_resource type="Texture2D" path="res://forest_layers/06_front.png" id="6"]
+
+[node name="ForestParallax" type="Node2D"]
+
+[node name="Background" type="ParallaxBackground" parent="."]
+layer = -1
+
+[node name="Sky" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky"]
+texture_filter = 0
+texture = ExtResource("1")
+centered = false
+
+[node name="Far" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.12, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Far"]
+texture_filter = 0
+texture = ExtResource("2")
+centered = false
+
+[node name="Mid" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.3, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Mid"]
+texture_filter = 0
+texture = ExtResource("3")
+centered = false
+
+[node name="Back" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.55, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Back"]
+texture_filter = 0
+texture = ExtResource("4")
+centered = false
+
+[node name="Main" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Main"]
+texture_filter = 0
+texture = ExtResource("5")
+centered = false
+
+[node name="Foreground" type="ParallaxBackground" parent="."]
+layer = 1
+
+[node name="Front" type="ParallaxLayer" parent="Foreground"]
+motion_scale = Vector2(1.35, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Foreground/Front"]
+texture_filter = 0
+texture = ExtResource("6")
+centered = false

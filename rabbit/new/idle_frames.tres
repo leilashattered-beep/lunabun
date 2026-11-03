@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://rabbit/new/char_01.png" id="1_f1"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f1")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 4.0
+}]

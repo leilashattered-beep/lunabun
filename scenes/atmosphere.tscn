@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="CanvasItemMaterial" id="DarkMultiply"]
+blend_mode = 3
+
+[node name="Atmosphere" type="CanvasLayer"]
+layer = 100
+
+[node name="Darkness" type="ColorRect" parent="."]
+material = SubResource("DarkMultiply")
+offset_left = -240.0
+offset_top = -240.0
+offset_right = 1520.0
+offset_bottom = 960.0
+mouse_filter = 2
+color = Color(0.63, 0.68, 0.81, 1.00)

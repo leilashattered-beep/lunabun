@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/fireflies.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://fireflies/firefly_glow.png" id="2_glow"]
+
+[sub_resource type="CanvasItemMaterial" id="GlowAdditive"]
+blend_mode = 1
+
+[node name="FireflyDust" type="Node2D"]
+material = SubResource("GlowAdditive")
+z_index = 85
+script = ExtResource("1_script")
+count = 80
+world_width = 3842.0
+glow_texture = ExtResource("2_glow")
+floor_y = 152.0
+ceiling_y = 20.0
+glow_color = Color(0.72, 0.84, 1, 1)
+peak_alpha = 0.8
+dim_alpha = 0.06
+min_size = 0.18
+max_size = 0.45
+rise_min = 0.5
+rise_max = 1.8
+drift_x = 18.0
+drift_y = 7.0
+low_bias = 1.2

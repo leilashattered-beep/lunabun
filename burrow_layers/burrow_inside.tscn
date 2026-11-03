@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://burrow_layers/in_01_room.png" id="1"]
+[ext_resource type="Texture2D" path="res://burrow_layers/in_02_front.png" id="2"]
+
+[node name="BurrowInside" type="Node2D"]
+
+[node name="Room" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="Room"]
+texture_filter = 0
+texture = ExtResource("1")
+centered = false
+
+[node name="Front" type="CanvasLayer" parent="."]
+layer = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Front"]
+texture_filter = 0
+texture = ExtResource("2")
+centered = false

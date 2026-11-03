@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/light_pools.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://fireflies/firefly_pool.png" id="2_pool"]
+
+[sub_resource type="CanvasItemMaterial" id="PoolAdditive"]
+blend_mode = 1
+
+[node name="LightPools" type="Node2D"]
+material = SubResource("PoolAdditive")
+z_index = 85
+script = ExtResource("1_script")
+count = 36
+world_width = 3842.0
+pool_texture = ExtResource("2_pool")
+ground_y = 147.5
+strength = 1.1
+light_color = Color(1, 0.95, 0.78, 1)
+min_size = 0.9
+max_size = 2.1
+squash = 0.34
+stretch = 1.6

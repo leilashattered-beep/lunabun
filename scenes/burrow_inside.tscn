@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="PackedScene" path="res://burrow_layers/burrow_inside.tscn" id="1_room"]
+[ext_resource type="Script" path="res://scripts/burrow_inside.gd" id="2_script"]
+[ext_resource type="Script" path="res://scripts/rabbit.gd" id="3_rabbit"]
+[ext_resource type="SpriteFrames" path="res://rabbit/new/idle_frames.tres" id="4_idle"]
+[ext_resource type="SpriteFrames" path="res://rabbit/new/walk_frames.tres" id="5_walk"]
+[ext_resource type="SpriteFrames" path="res://rabbit/new/jump_frames.tres" id="6_jump"]
+[ext_resource type="PackedScene" path="res://scenes/key_prompt.tscn" id="6_prompt"]
+
+[sub_resource type="RectangleShape2D" id="FloorBody"]
+size = Vector2(300, 26)
+
+[sub_resource type="RectangleShape2D" id="RabbitBody"]
+size = Vector2(38, 22)
+
+[node name="BurrowInside" type="Node2D"]
+script = ExtResource("2_script")
+floor_y = 150.0
+door_x = 34.0
+bed_x = 254.0
+walk_min_x = 30.0
+walk_max_x = 290.0
+bed_lie_y = 120.0
+door_spawn_x = 50.0
+interact_radius = 26.0
+sleep_seconds = 3.5
+
+[node name="RoomLayers" parent="." instance=ExtResource("1_room")]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Floor"]
+position = Vector2(160, 163)
+shape = SubResource("FloorBody")
+
+[node name="Rabbit" type="CharacterBody2D" parent="."]
+position = Vector2(50, 150)
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+floor_snap_length = 8.0
+script = ExtResource("3_rabbit")
+idle_frames = ExtResource("4_idle")
+walk_frames = ExtResource("5_walk")
+jump_frames = ExtResource("6_jump")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rabbit"]
+texture_filter = 0
+scale = Vector2(0.3, 0.3)
+offset = Vector2(0, -21.2)
+sprite_frames = ExtResource("4_idle")
+animation = &"Idle"
+autoplay = "Idle"
+
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rabbit"]
+position = Vector2(0, -11.0)
+shape = SubResource("RabbitBody")
+
+[node name="Camera2D" type="Camera2D" parent="Rabbit"]
+zoom = Vector2(4, 4)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 180
+
+[node name="SleepCorner" type="Node2D" parent="."]
+
+[node name="Ui" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Prompt" parent="Ui" instance=ExtResource("6_prompt")]
+
+[node name="Line" type="Label" parent="Ui"]
+offset_left = 160.0
+offset_top = 470.0
+offset_right = 1120.0
+offset_bottom = 534.0
+theme_override_colors/font_color = Color(0.94, 0.96, 1, 1)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 0.95)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = ""
+horizontal_alignment = 1
+
+[node name="FadeRect" type="ColorRect" parent="Ui"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.02, 0.02, 0.06, 0)

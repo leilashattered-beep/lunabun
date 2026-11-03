@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/burrow_entrance.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/key_prompt.tscn" id="2_prompt"]
+
+[node name="BurrowEntrance" type="Node2D"]
+script = ExtResource("1_script")
+entrance_x = 400.0
+interact_radius = 26.0
+nest_x = 300.0
+exit_spawn_x = 410.0
+floor_y = 147.0
+target_scene = ""
+forest_target = "res://scenes/burrow_inside.tscn"
+outside_target = "res://scenes/main.tscn"
+inside_target = "res://scenes/main.tscn"
+forest_key = "enter"
+outside_key = "enter"
+inside_key = "exit"
+
+[node name="Ui" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Prompt" parent="Ui" instance=ExtResource("2_prompt")]
+
+[node name="FadeRect" type="ColorRect" parent="Ui"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.02, 0.02, 0.06, 0)

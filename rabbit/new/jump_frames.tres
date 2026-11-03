@@ -1,0 +1,29 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://rabbit/new/quad_05.png" id="1_f1"]
+[ext_resource type="Texture2D" path="res://rabbit/new/quad_06.png" id="2_f2"]
+[ext_resource type="Texture2D" path="res://rabbit/new/quad_07.png" id="3_f3"]
+[ext_resource type="Texture2D" path="res://rabbit/new/quad_08.png" id="4_f4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f1")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("2_f2")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("3_f3")
+},
+{
+"duration": 1.0,
+"texture": ExtResource("4_f4")
+}],
+"loop": false,
+"name": &"Jump",
+"speed": 9.0
+}]
