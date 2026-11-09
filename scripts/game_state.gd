@@ -10,7 +10,6 @@ const SAVE_PATH := "user://lunabun_save.json"
 var has_progress := false
 var scene_path := "res://scenes/burrow_inside.tscn"
 var rabbit_x := 50.0
-var has_slept := false
 
 ## Settings, mirrored into the audio buses.
 var music_volume := 0.8
@@ -61,7 +60,6 @@ func reset_progress() -> void:
 	has_progress = false
 	scene_path = "res://scenes/burrow_inside.tscn"
 	rabbit_x = 50.0
-	has_slept = false
 
 
 func start_new_game() -> void:
@@ -84,7 +82,6 @@ func save_game() -> bool:
 	var data := {
 		"scene_path": scene_path,
 		"rabbit_x": rabbit_x,
-		"has_slept": has_slept,
 		"music_volume": music_volume,
 		"sfx_volume": sfx_volume,
 		"fullscreen": fullscreen,
@@ -113,7 +110,6 @@ func load_game() -> bool:
 	var d: Dictionary = parsed
 	scene_path = str(d.get("scene_path", scene_path))
 	rabbit_x = float(d.get("rabbit_x", rabbit_x))
-	has_slept = bool(d.get("has_slept", has_slept))
 	music_volume = float(d.get("music_volume", music_volume))
 	sfx_volume = float(d.get("sfx_volume", sfx_volume))
 	fullscreen = bool(d.get("fullscreen", fullscreen))

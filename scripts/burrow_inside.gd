@@ -6,7 +6,7 @@ extends Node2D
 ## drawn over the player). Nothing is flattened into a single image.
 ##
 ## The package's README lists the glow it does not ship - the lamp, the warm
-## sleeping corner, the shaft of light from the window - so those are added here
+## nest corner, the shaft of light from the window - so those are added here
 ## as additive sprites and a ColorRect. The pixel art itself is untouched.
 
 ## The room is the only separate location: its door leads out into the single
@@ -24,15 +24,12 @@ const UI_SCALE := 4.0
 @export var bed_lie_y := 126.0
 @export var door_spawn_x := 50.0
 @export var interact_radius := 26.0
-## How long the rabbit sleeps before waking by itself.
-@export var sleep_seconds := 3.5
 
 @onready var rabbit: CharacterBody2D = $Rabbit
 @onready var prompt: Control = $Ui/Prompt
 @onready var fade: ColorRect = $Ui/FadeRect
 @onready var line: Label = $Ui/Line
 
-var _sleeping := false
 var _busy := false
 var _rng := RandomNumberGenerator.new()
 
@@ -90,7 +87,7 @@ func _build_lighting() -> void:
 	var glow_tex: Texture2D = load("res://fireflies/firefly_glow.png")
 	var pool_tex: Texture2D = load("res://fireflies/firefly_pool.png")
 
-	# Warm light over the sleeping nest: this is what makes it feel safe.
+	# Warm light over the nest: this is what makes it feel safe.
 	_add_glow(add, pool_tex, Vector2(bed_x - 8.0, floor_y - 3.0),
 		Vector2(5.2, 2.0), Color(1.0, 0.80, 0.48, 0.30), 85)
 	_add_glow(add, glow_tex, Vector2(bed_x - 16.0, floor_y - 13.0),
@@ -133,35 +130,31 @@ func _add_glow(material: CanvasItemMaterial, tex: Texture2D, pos: Vector2,
 func _process(_delta: float) -> void:
 	if _busy:
 		return
-	var x := rabbit.global_position.x
-	var near_bed := absf(x - bed_x) <= interact_radius + 6.0
-	var near_door := absf(x - door_x) <= interact_radius
+	# The dialogue owns the room while it is up.
+	if Story.is_open() or Story.ending != "":
+		prompt.hide_prompt()
+		return
+	var near_door := absf(rabbit.global_position.x - door_x) <= interact_radius
 
-	if _sleeping:
-		# Waking is asleep-only, so show the same "sleep" key art.
-		prompt.show_key("sleep")
-	elif near_bed:
-		prompt.show_key("sleep")
-	elif near_door:
+	# With every shard home the last meeting is waiting inside; the door stays
+	# shut until it has happened, so the ending cannot be walked past.
+	var ending_pending := Story.shards >= Story.SHARD_TOTAL and Story.ending == ""
+	if ending_pending:
+		prompt.hide_prompt()
+		if near_door and Input.is_action_just_pressed("enter_exit"):
+			_say("Дверь не отзывается. Кто-то ждёт тебя в глубине норы.")
+		return
+
+	if near_door:
 		prompt.show_key("exit")
 	else:
 		prompt.hide_prompt()
 
 	# Polled rather than handled as an event: this works identically for real
 	# input, for gamepads and for scripted input in tests.
-	# One key does the room: E at the door leaves, E at the bed sleeps or wakes.
-	# The door is checked first, and the two never sit within reach of each other.
-	if Input.is_action_just_pressed("enter_exit") and not _sleeping and near_door:
+	if Input.is_action_just_pressed("enter_exit") and near_door:
 		await _leave()
-		return
-	if not Input.is_action_just_pressed("interact"):
-		return
-	if _sleeping:
-		if near_bed:
-			await _wake()
-		return
-	if near_bed:
-		await _sleep()
+
 
 ## Shows a short spoken line for a moment. Enough to make "E — говорить" mean
 ## something without adding a dialogue system.
@@ -173,86 +166,6 @@ func _say(text: String) -> void:
 	tween.tween_interval(1.6)
 	tween.tween_property(line, "modulate:a", 0.0, 0.6)
 	tween.tween_callback(func(): line.visible = false)
-
-
-## Hops onto the sleeping place, curls up, the room goes dark, and after a
-## couple of seconds the rabbit wakes by itself.
-func _sleep() -> void:
-	_busy = true
-	prompt.hide_prompt()
-	rabbit.input_locked = true
-	rabbit.velocity = Vector2.ZERO
-	rabbit.play_idle()
-	# The rabbit leaves the floor to get onto the nest, so the Y clamp that
-	# keeps it on the ground has to stand down for the duration.
-	rabbit.clamp_to_floor = false
-
-	# Settle the rabbit just beside the nest and face it towards the bed.
-	var approach := create_tween()
-	approach.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	approach.tween_property(rabbit, "global_position:x", bed_x - 14.0, 0.35)
-	approach.parallel().tween_property(rabbit.sprite, "rotation_degrees", 0.0, 0.2)
-	await approach.finished
-
-	# The hop: a small arc onto the nest, in two frames like a real hop.
-	rabbit.play_walk()
-	var hop := create_tween()
-	hop.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	hop.tween_property(rabbit, "global_position:x", bed_x - 2.0, 0.42)
-	hop.parallel().tween_property(rabbit, "global_position:y", bed_lie_y - 12.0, 0.21)
-	await hop.finished
-	var drop := create_tween()
-	drop.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	drop.tween_property(rabbit, "global_position:y", bed_lie_y, 0.21)
-	await drop.finished
-
-	# Lie down on the moss and put the screen out. The rabbit is NOT turned over:
-	# it keeps its normal pose on the nest and only the screen fades.
-	rabbit.lying_down = true
-	rabbit.play_sleep()
-	var curl := create_tween()
-	curl.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	curl.tween_property(fade, "color:a", 1.0, 0.9)
-	await curl.finished
-
-	_sleeping = true
-	GameState.has_slept = true
-
-	# Calm night pause, then wake up on its own.
-	for i in int(sleep_seconds * 60.0):
-		await get_tree().physics_frame
-	_busy = false
-	await _wake()
-
-
-func _wake() -> void:
-	_busy = true
-	prompt.hide_prompt()
-	rabbit.input_locked = true
-	rabbit.lying_down = false
-	rabbit.play_idle()
-
-	var uncurl := create_tween()
-	uncurl.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	uncurl.tween_property(rabbit.sprite, "rotation_degrees", 0.0, 0.4)
-	uncurl.parallel().tween_property(fade, "color:a", 0.0, 0.7)
-	await uncurl.finished
-
-	# Hop back down to the floor.
-	var hop := create_tween()
-	hop.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	hop.tween_property(rabbit, "global_position:y", floor_y - 12.0, 0.2)
-	await hop.finished
-	var land := create_tween()
-	land.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	land.tween_property(rabbit, "global_position:y", floor_y, 0.2)
-	await land.finished
-
-	rabbit.play_idle()
-	rabbit.clamp_to_floor = true
-	_sleeping = false
-	_busy = false
-	rabbit.input_locked = false
 
 
 ## Fades out and hands control back to the forest.

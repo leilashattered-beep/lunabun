@@ -16,7 +16,7 @@ extends CharacterBody2D
 const SPEED := 55.0
 const ACCELERATION := 420.0
 const FRICTION := 520.0
-## How high and how long the hop is. High enough to reach the sleeping place.
+## How high and how long the hop is. High enough to reach a raised surface.
 const JUMP_HEIGHT := 28.0
 const JUMP_TIME := 0.5
 
@@ -31,24 +31,21 @@ const BACKLIGHT_COLOUR := Color(0.82, 0.91, 1.0)
 @export var walk_frames: SpriteFrames
 ## Hop: take-off, two airborne frames and the landing crouch.
 @export var jump_frames: SpriteFrames
-## Optional sleeping pose. When empty the rabbit just holds its idle pose.
-@export var sleep_frames: SpriteFrames
 
 ## Horizontal range the rabbit may walk in (set by the location).
 var walk_limits := Vector2(8.0, 3192.0)
 ## Y band the rabbit is clamped to (set by the location). A safety net so it can
 ## never leave the level whatever happens with the collision.
 var floor_range := Vector2(143.0, 157.0)
-## While true the rabbit ignores input (used during scene transitions and sleep).
+## While true the rabbit ignores input (used during scene transitions).
 var input_locked := false
-## While true the rabbit is curled up in its sleeping place.
-var lying_down := false
 ## While true Y is clamped to `floor_range`. Locations turn this off for scripted
-## moves that leave the floor - hopping onto the sleeping place, for example,
+## moves that leave the floor - hopping onto a raised surface, for example,
 ## would otherwise be pulled straight back down by the clamp.
 var clamp_to_floor := true
 
-## A raised surface the location lets the rabbit hop onto - its sleeping place.
+## A raised surface the location lets the rabbit hop onto - the nest, for example.
+## A raised surface the location lets the rabbit hop onto - the nest, for example.
 ## `platform_x` is the x range and `platform_y` the height of its top; left as
 ## ZERO/ZERO by locations that have nothing to climb on.
 var platform_x := Vector2.ZERO
@@ -343,7 +340,7 @@ func is_jumping() -> bool:
 
 
 func _physics_process(delta: float) -> void:
-	var axis := 0.0 if (input_locked or lying_down) else _input_axis()
+	var axis := 0.0 if input_locked else _input_axis()
 
 	if is_zero_approx(axis):
 		velocity.x = move_toward(velocity.x, 0.0, FRICTION * delta)
@@ -363,12 +360,10 @@ func _physics_process(delta: float) -> void:
 	if _jump_t >= 0.0:
 		_tick_jump(delta)
 		return
-	if lying_down:
-		return
 
 	# Space starts a hop, while standing still or in the middle of a walk, but
-	# never while sleeping or being moved by a location.
-	if not (input_locked or lying_down) and Input.is_action_just_pressed("jump"):
+	# never while being moved by a location.
+	if not input_locked and Input.is_action_just_pressed("jump"):
 		_start_jump()
 		return
 
@@ -376,7 +371,7 @@ func _physics_process(delta: float) -> void:
 
 	# Footsteps while walking: quiet, slightly irregular, and only on the ground.
 	_update_pendant()
-	if _jump_t < 0.0 and not is_zero_approx(axis) and not lying_down:
+	if _jump_t < 0.0 and not is_zero_approx(axis):
 		_step_clock += delta
 		if _step_clock >= STEP_INTERVAL:
 			_step_clock = 0.0
@@ -448,8 +443,8 @@ func _over_platform() -> bool:
 		and global_position.x <= platform_x.y)
 
 
-## Used by a location that puts the rabbit on its sleeping place, so it stays
-## there when it wakes up.
+## Used by a location that puts the rabbit on a raised surface, so it stays
+## there instead of dropping back to the floor.
 func set_on_platform(on: bool) -> void:
 	on_platform = on
 	if on:
@@ -515,21 +510,11 @@ func _lead_camera() -> void:
 	t.tween_property(_camera, "position:x", wanted, 0.45)
 
 
-## Played by a location when the rabbit curls up in its sleeping place.
-func play_sleep() -> void:
-	if sleep_frames != null:
-		sprite.sprite_frames = sleep_frames
-		if sprite.sprite_frames.has_animation(&"Sleep"):
-			sprite.play(&"Sleep")
-			return
-	_play(&"Idle")
-
-
 func play_idle() -> void:
 	_play(&"Idle")
 
 
-## Used while hopping onto or off the sleeping place.
+## Used while hopping onto or off a raised surface.
 func play_walk() -> void:
 	_play(&"Walk")
 

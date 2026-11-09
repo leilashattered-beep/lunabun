@@ -19,37 +19,124 @@ const CHAPTERS := [
 
 # ------------------------------------------------------------------ who talks
 const PEOPLE := {
-	"firefly": {
-		"name": "Блуждающий огонёк",
-		"colour": Color(1.0, 0.95, 0.70),
-		"lines": [],
-	},
-	"owl": {
-		"name": "Ночной дух",
-		"colour": Color(0.78, 0.84, 1.0),
-		"lines": [],
-	},
-	"fox": {
-		"name": "Старый дух",
-		"colour": Color(1.0, 0.72, 0.48),
-		"lines": [],
-	},
-	"spirit": {
-		"name": "Лесной дух",
-		"colour": Color(0.72, 1.0, 0.86),
-		"lines": [],
-	},
+	# Ghost by the burrow (world x 3520), met first when leaving the room.
 	"keeper": {
-		"name": "Хранитель норы",
-		"colour": Color(0.84, 0.93, 1.0),
-		"lines": [],
+		"name": "Призрак",
+		"colour": Color(0.78, 0.86, 1.0),
+		"first": [
+			"Ох...",
+			"Ты наконец проснулся?",
+			"Здесь уже давно никого не было.",
+			"Странно... Ты всё ещё несёшь в себе немного света.",
+			"Береги его, маленький странник.",
+		],
+		"again": [
+			"Луна больше не освещает этот лес...",
+			"Но, возможно, надежда ещё осталась.",
+		],
+	},
+	# Ghost on the forest path (world x 480).
+	"firefly": {
+		"name": "Призрак",
+		"colour": Color(1.0, 0.95, 0.70),
+		"first": [
+			"Ты тоже это чувствуешь?",
+			"Лес изменился.",
+			"Деревья больше не шепчутся друг с другом...",
+			"Даже ветер боится нарушить тишину.",
+			"Может быть, ты сможешь всё исправить?",
+		],
+		"again": [
+			"Иногда даже самый маленький огонёк способен прогнать глубокую тьму.",
+		],
+	},
+	# Ghost by the big mushrooms (world x 1900).
+	"fox": {
+		"name": "Призрак",
+		"colour": Color(1.0, 0.72, 0.48),
+		"first": [
+			"Когда-то эти грибы светились ярче звёзд.",
+			"Мы собирались здесь по вечерам.",
+			"Смеялись, играли и слушали истории...",
+			"Интересно, кто-нибудь ещё помнит те времена?",
+		],
+		"again": [
+			"Если найдёшь осколки света, не проходи мимо.",
+			"Лес всё ещё ждёт их возвращения.",
+		],
+	},
+	# Ghost by the bridge (world x 1180).
+	"owl": {
+		"name": "Призрак",
+		"colour": Color(0.78, 0.84, 1.0),
+		"first": [
+			"Ты ведь тоже ищешь дорогу домой?",
+			"Я так долго ждал...",
+			"Сначала я думал, что кто-нибудь придёт.",
+			"Потом перестал считать дни.",
+			"Знаешь... Иногда самое страшное — забыть, кого ты ждёшь.",
+		],
+		"again": [
+			"Надеюсь, однажды здесь снова станет светло.",
+		],
+	},
+	# The girl, deep in the forest (world x 2700).
+	"spirit": {
+		"name": "Девочка-призрак",
+		"colour": Color(1.0, 0.86, 0.92),
+		"first": [
+			"Ой... Ты меня видишь?",
+			"Какой милый зайчик!",
+			"Я раньше часто играла здесь.",
+			"У меня был маленький друг...",
+			"Он тоже очень любил смотреть на луну.",
+			"Интересно, он всё ещё помнит меня?",
+		],
+		"again": [
+			"Если встретишь его... передай, что я не забыла.",
+		],
 	},
 	"black": {
-		"name": "Чёрный дух",
+		"name": "Чёрный заяц",
 		"colour": Color(0.58, 0.64, 0.74),
-		"lines": [],
 	},
 }
+
+## What the black rabbit says, once per meeting, in order.
+const BLACK_MEETINGS := [
+	["...", "Ты заблудился?"],
+	["Всё-таки продолжаешь идти.", "Упрямый."],
+	["Не бойся темноты.", "Она не всегда враг."],
+	["Ты уже близко.", "Не останавливайся."],
+	["...", "Я знал, что ты справишься."],
+]
+
+## The last conversation, in the burrow, once every shard is home.
+const FINAL_SCENE := [
+	"Ты вернулся.",
+	"Я знал, что однажды ты найдёшь все осколки.",
+	"Знаешь... Я давно наблюдаю за тобой.",
+	"Ты напоминаешь мне кое-кого.",
+	"Когда-то здесь жил другой заяц.",
+	"Он тоже носил в себе лунный свет.",
+	"Он был хранителем.",
+	"И я...",
+	"Я и был тем зайцем.",
+	"Когда-то нас было двое.",
+	"Один оберегал свет.",
+	"Другой — тьму.",
+	"Но однажды я исчез.",
+	"И вместе со мной исчезло равновесие леса.",
+	"Я думал, что больше никогда не вернусь.",
+	"А ты всё это время искал меня...",
+	"Даже не зная об этом.",
+	"Ты вернул свет.",
+	"Но теперь тебе не нужно нести его в одиночку.",
+	"Я больше не хочу оставаться один в темноте.",
+	"Можно я останусь здесь?",
+	"Хотя бы ненадолго...",
+	"Я скучал по дому.",
+]
 
 # ------------------------------------------------------------------ what is left
 const NOTES := {
@@ -104,7 +191,10 @@ const SHARD_TOTAL := 6
 var intro_seen := false
 var shards := 0
 var notes := {}
+## Everyone the rabbit has already talked to, so first meetings stay first.
+var met := {}
 var met_black := false
+var black_meetings := 0
 var saw_images := false
 var choice := ""
 var ending := ""
@@ -213,10 +303,35 @@ func note_seen(id: String) -> bool:
 	return notes.has(id)
 
 
+## The last shard refuses to be taken until the forest's story is complete.
+func all_notes_found() -> bool:
+	return notes.size() >= NOTES.size()
+
+
 func mark_met(who: String) -> bool:
+	var first := not met.has(who)
+	met[who] = true
 	if who == "black":
 		met_black = true
-	return true
+		black_meetings += 1
+	return first
+
+
+## Which of the black rabbit's five short conversations comes next.
+func black_lines() -> Array:
+	var stage := clampi(black_meetings, 1, BLACK_MEETINGS.size())
+	return BLACK_MEETINGS[stage - 1]
+
+
+## The final talk in the burrow, after every shard has been brought back.
+func final_scene() -> void:
+	choice = "light"
+	# All shards now require all notes, so the reunited keepers can earn the
+	# true ending instead of the plain light one.
+	ending = "secret" if knows_the_whole_story() else "light"
+	var data: Dictionary = ENDINGS[ending]
+	tell("black", FINAL_SCENE)
+	_show_ending_title(str(data["title"]), str(data["note"]))
 
 
 ## Called by the Heart of the Forest. `which` is "light" or "balance".
@@ -412,7 +527,9 @@ func to_save() -> Dictionary:
 		"intro_seen": intro_seen,
 		"shards": shards,
 		"notes": notes.keys(),
+		"met": met.keys(),
 		"met_black": met_black,
+		"black_meetings": black_meetings,
 		"saw_images": saw_images,
 		"choice": choice,
 		"ending": ending,
@@ -424,7 +541,12 @@ func from_save(d: Dictionary) -> void:
 	shards = int(d.get("shards", shards))
 	for id in d.get("notes", []):
 		notes[str(id)] = true
+	for who in d.get("met", []):
+		met[str(who)] = true
 	met_black = bool(d.get("met_black", met_black))
+	black_meetings = int(d.get("black_meetings", black_meetings))
+	if met_black:
+		met["black"] = true
 	saw_images = bool(d.get("saw_images", saw_images))
 	choice = str(d.get("choice", choice))
 	ending = str(d.get("ending", ending))
@@ -434,7 +556,9 @@ func reset() -> void:
 	intro_seen = false
 	shards = 0
 	notes.clear()
+	met.clear()
 	met_black = false
+	black_meetings = 0
 	saw_images = false
 	choice = ""
 	ending = ""

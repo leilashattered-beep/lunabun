@@ -19,7 +19,7 @@ clip already carries the Lunabun lettering and the rabbit. From the menu:
    ├─ КАК ИГРАТЬ ......... the controls, in Russian
    └─ ВЫХОД .............. asks "Выйти из игры?" first
 OUTDOOR WORLD  (scenes/main.tscn, 3842 px)  ← the forest, with the burrow hill
-BURROW ROOM    (scenes/burrow_inside.tscn)  ← one screen, with the sleeping nest
+BURROW ROOM    (scenes/burrow_inside.tscn)  ← one screen, with the nest
 ```
 
 Pressing **ESC** while playing opens the pause menu (gameplay is paused, the
@@ -174,7 +174,7 @@ for the keyboard, a gamepad and scripted input.
 | Key | Action |
 | --- | --- |
 | `A` / `D` (or `←` / `→`) | walk left / right |
-| `E` | take an item, talk, enter / leave the burrow, sleep and wake again |
+| `E` | take an item, talk, enter / leave the burrow |
 | `ESC` | pause menu while playing, back one step inside a menu |
 
 
@@ -197,14 +197,14 @@ directly in world space, so they line up by simply placing the hill at x = 3204:
 | Location | Scene | Contents |
 | --- | --- | --- |
 | Outdoor world | `scenes/main.tscn` | forest (0…3203) + burrow hill (3204…3847) as one map |
-| Burrow room | `scenes/burrow_inside.tscn` | one screen inside from `burrow_layers`, with the sleeping nest |
+| Burrow room | `scenes/burrow_inside.tscn` | one screen inside from `burrow_layers`, with the nest |
 
 ### Controls
 
 | Key | Action |
 | --- | --- |
 | `A` / `D` (or `←` / `→`) | walk left / right |
-| `E` | take an item, talk, enter / leave the burrow, sleep and wake again |
+| `E` | take an item, talk, enter / leave the burrow |
 
 ### Interactions
 
@@ -214,25 +214,11 @@ shown centred near the bottom of the screen by `scripts/key_prompt.gd`:
 * **E войти** — at the hole in the hill (x=3604) → the burrow room
 * **E выйти** — at the door inside the room (x=34) → back outdoors
 * **E взять** — at a shard or a note that is within reach
-* **E лечь спать** — at the nest (x=254); **E** again wakes the rabbit
 * **E говорить** — by the crystal shelf in the room (x=66) says a line of text
 
 The supplied key-cap pictures (`ui/keys/take.png`, `enter.png`, `exit.png`,
 `talk.png`, `sleep.png`) are still in the project but are no longer drawn: one
 key does all of it now, so the text line says what will happen instead.
-
-### The sleep sequence
-
-Pressing E at the nest plays out by itself:
-
-1. the rabbit walks the last step to the nest and hops in a small arc onto it,
-2. it curls up (rotated onto its side) on the moss,
-3. the room dims to 55 % over about a second,
-4. it sleeps for `sleep_seconds` (3.5 s by default) with the screen dark,
-5. it wakes on its own, hops back down to the floor and control returns.
-
-`GameState.has_slept` is set, `scripts/game_state.gd` being the autoload that
-carries state across scene changes.
 
 ## The burrow room
 

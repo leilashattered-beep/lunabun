@@ -10,15 +10,13 @@ const LINES := {
 	"enter": "E — войти",
 	"exit": "E — выйти",
 	"talk": "E — говорить",
-	"sleep": "E — лечь спать",
-	"wake": "E — проснуться",
 }
 
 const TEXT_SIZE := 19
 const BOX_WIDTH := 520.0
 const BOX_HEIGHT := 30.0
 
-## Which action to show: take / enter / exit / talk / sleep / wake.
+## Which action to show: take / enter / exit / talk.
 @export var key := "take"
 ## Distance from the bottom of the screen, in real pixels.
 @export var bottom_margin := 44.0
