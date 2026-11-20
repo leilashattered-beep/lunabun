@@ -1,6 +1,8 @@
-# Lunabun
+# Игра
 
 **Автор:** Кочанова Лейла — 2 курс, группа 2063
+
+> **Примечание:** проект переименован в «Игра». Модель зайца изменена.
 
 **The game starts on the main menu**, over the animated forest clip you supplied.
 `ui/menu_bg` holds its 90 frames: the clip is 3 s at 30 fps and is itself 640x360
